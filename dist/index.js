@@ -334,7 +334,7 @@ module.exports = _reactNative2.default.createClass({
   renderPagination: function renderPagination() {
 
     // By default, dots only show when `total` > 2
-    if (this.state.total <= 1) return null;
+    if (this.state.total <= 1 || this.state.index === this.state.total - 1) return null;
 
     var dots = [];
     var ActiveDot = this.props.activeDot || _reactNative2.default.createElement(_reactNative.View, { style: {

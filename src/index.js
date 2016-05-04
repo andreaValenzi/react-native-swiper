@@ -334,7 +334,7 @@ module.exports = React.createClass({
   renderPagination() {
 
     // By default, dots only show when `total` > 2
-    if(this.state.total <= 1 || this.state.index === this.state.total - 1) return null
+    if(this.state.total <= 1) return null
 
     let dots = []
     let ActiveDot = this.props.activeDot || <View style={{
