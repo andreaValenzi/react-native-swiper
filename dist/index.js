@@ -1,9 +1,9 @@
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /**
-                                                                                                                                                                                                                                                                   * react-native-swiper
-                                                                                                                                                                                                                                                                   * @author leecade<leecade@163.com>
-                                                                                                                                                                                                                                                                   */
+ * react-native-swiper
+ * @author leecade<leecade@163.com>
+ */
 
 // Using bare setTimeout, setInterval, setImmediate
 // and requestAnimationFrame calls is very dangerous
@@ -52,7 +52,7 @@ var styles = _reactNative.StyleSheet.create({
     right: 0,
     flexDirection: 'row',
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'center',
     backgroundColor: 'transparent'
   },
@@ -361,10 +361,28 @@ module.exports = _reactNative2.default.createClass({
       dots.push(i === this.state.index ? _reactNative2.default.cloneElement(ActiveDot, { key: i }) : _reactNative2.default.cloneElement(Dot, { key: i }));
     }
 
+    var pagination = _reactNative2.default.createElement(
+      _reactNative.View,
+      {style: {flexDirection: 'row'}},
+      dots,
+    );
+
+    var left = _reactNative2.default.createElement(
+      _reactNative.View,
+      null,
+      _reactNative2.default.createElement(
+        _reactNative.Text,
+        { style: {color: 'white', fontSize: 18} },
+        'Next'
+      )
+    );
+
     return _reactNative2.default.createElement(
       _reactNative.View,
-      { pointerEvents: 'none', style: [styles['pagination_' + this.state.dir], this.props.paginationStyle] },
-      dots
+      { pointerEvents: 'box-none', style: [styles['pagination_' + this.state.dir], this.props.paginationStyle] },
+      left,
+      pagination,
+      this.renderRightButton()
     );
   },
   renderTitle: function renderTitle() {
@@ -376,6 +394,31 @@ module.exports = _reactNative2.default.createClass({
       this.props.children[this.state.index].props.title
     ) : null;
   },
+  renderRightButton: function renderRightButton() {
+    var _this4 = this;
+
+    var button = undefined;
+
+    if (this.props.loop || this.state.index != this.state.total - 1) {
+      button = this.props.nextButton || _reactNative2.default.createElement(
+          _reactNative.Text,
+          { style: this.props.rightButtonStyle },
+          'Next'
+        );
+    }
+
+    return _reactNative2.default.createElement(
+      _reactNative.TouchableOpacity,
+      { onPress: function onPress() {
+        return button !== null && _this4.scrollTo.call(_this4, 1);
+      } },
+      _reactNative2.default.createElement(
+        _reactNative.View,
+        null,
+        button
+      )
+    );
+  },
   renderNextButton: function renderNextButton() {
     var _this4 = this;
 
@@ -383,17 +426,17 @@ module.exports = _reactNative2.default.createClass({
 
     if (this.props.loop || this.state.index != this.state.total - 1) {
       button = this.props.nextButton || _reactNative2.default.createElement(
-        _reactNative.Text,
-        { style: styles.buttonText },
-        '›'
-      );
+          _reactNative.Text,
+          { style: styles.buttonText },
+          '›'
+        );
     }
 
     return _reactNative2.default.createElement(
       _reactNative.TouchableOpacity,
       { onPress: function onPress() {
-          return button !== null && _this4.scrollTo.call(_this4, 1);
-        } },
+        return button !== null && _this4.scrollTo.call(_this4, 1);
+      } },
       _reactNative2.default.createElement(
         _reactNative.View,
         null,
@@ -408,17 +451,17 @@ module.exports = _reactNative2.default.createClass({
 
     if (this.props.loop || this.state.index != 0) {
       button = this.props.prevButton || _reactNative2.default.createElement(
-        _reactNative.Text,
-        { style: styles.buttonText },
-        '‹'
-      );
+          _reactNative.Text,
+          { style: styles.buttonText },
+          '‹'
+        );
     }
 
     return _reactNative2.default.createElement(
       _reactNative.TouchableOpacity,
       { onPress: function onPress() {
-          return button !== null && _this5.scrollTo.call(_this5, -1);
-        } },
+        return button !== null && _this5.scrollTo.call(_this5, -1);
+      } },
       _reactNative2.default.createElement(
         _reactNative.View,
         null,
@@ -463,12 +506,12 @@ module.exports = _reactNative2.default.createClass({
     var _this6 = this;
 
     /*    const scrollResponders = [
-          'onMomentumScrollBegin',
-          'onTouchStartCapture',
-          'onTouchStart',
-          'onTouchEnd',
-          'onResponderRelease',
-        ]*/
+     'onMomentumScrollBegin',
+     'onTouchStartCapture',
+     'onTouchStart',
+     'onTouchEnd',
+     'onResponderRelease',
+     ]*/
 
     for (var prop in props) {
       // if(~scrollResponders.indexOf(prop)
@@ -528,9 +571,9 @@ module.exports = _reactNative2.default.createClass({
     return _reactNative2.default.createElement(
       _reactNative.View,
       { style: [styles.container, {
-          width: state.width,
-          height: state.height
-        }] },
+        width: state.width,
+        height: state.height
+      }] },
       this.renderScrollView(pages),
       props.showsPagination && (props.renderPagination ? this.props.renderPagination(state.index, state.total, this) : this.renderPagination()),
       this.renderTitle(),
