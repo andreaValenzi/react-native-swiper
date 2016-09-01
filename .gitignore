@@ -35,3 +35,7 @@ examples/swiper.xcodeproj/xcuserdata
 
 # IntelliJ
 .idea/
+
+# Vim
+*.sw*
+dist/
