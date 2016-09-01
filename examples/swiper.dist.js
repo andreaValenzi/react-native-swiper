@@ -58,7 +58,7 @@ var styles = _reactNative.StyleSheet.create({
     right: 0,
     flexDirection: 'row',
     flex: 1,
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'transparent'
   },
@@ -418,14 +418,14 @@ module.exports = _react2.default.createClass({
     var overrides = {};
 
     /*
-    const scrollResponders = [
-      'onMomentumScrollBegin',
-      'onTouchStartCapture',
-      'onTouchStart',
-      'onTouchEnd',
-      'onResponderRelease',
-    ]
-    */
+     const scrollResponders = [
+     'onMomentumScrollBegin',
+     'onTouchStartCapture',
+     'onTouchStart',
+     'onTouchEnd',
+     'onResponderRelease',
+     ]
+     */
 
     for (var prop in props) {
       // if(~scrollResponders.indexOf(prop)
@@ -450,7 +450,7 @@ module.exports = _react2.default.createClass({
   renderPagination: function renderPagination() {
 
     // By default, dots only show when `total` > 2
-    if (this.state.total <= 1 || this.state.index === this.state.total - 1) return null;
+    if (this.state.total <= 1) return null;
 
     var dots = [];
     var ActiveDot = this.props.activeDot || _react2.default.createElement(_reactNative.View, { style: {
@@ -477,32 +477,10 @@ module.exports = _react2.default.createClass({
       dots.push(i === this.state.index ? _react2.default.cloneElement(ActiveDot, { key: i }) : _react2.default.cloneElement(Dot, { key: i }));
     }
 
-<<<<<<< HEAD:dist/index.js
-    var pagination = _reactNative2.default.createElement(
-      _reactNative.View,
-      {style: {flexDirection: 'row'}},
-      dots,
-    );
-
-    var left = _reactNative2.default.createElement(
-      _reactNative.View,
-      null,
-      _reactNative2.default.createElement(
-        _reactNative.Text,
-        { style: {color: 'white', fontSize: 18} },
-        'Next'
-      )
-    );
-
-    return _reactNative2.default.createElement(
-=======
     return _react2.default.createElement(
->>>>>>> leecade/master:examples/swiper.dist.js
       _reactNative.View,
-      { pointerEvents: 'box-none', style: [styles['pagination_' + this.state.dir], this.props.paginationStyle] },
-      left,
-      pagination,
-      this.renderRightButton()
+      { pointerEvents: 'none', style: [styles['pagination_' + this.state.dir], this.props.paginationStyle] },
+      dots
     );
   },
   renderTitle: function renderTitle() {
@@ -514,64 +492,25 @@ module.exports = _react2.default.createClass({
       this.props.children[this.state.index].props.title
     ) : null;
   },
-  renderRightButton: function renderRightButton() {
-    var _this4 = this;
-
-    var button = undefined;
-
-    if (this.props.loop || this.state.index != this.state.total - 1) {
-      button = this.props.nextButton || _reactNative2.default.createElement(
-          _reactNative.Text,
-          { style: this.props.rightButtonStyle },
-          'Next'
-        );
-    }
-
-    return _reactNative2.default.createElement(
-      _reactNative.TouchableOpacity,
-      { onPress: function onPress() {
-        return button !== null && _this4.scrollTo.call(_this4, 1);
-      } },
-      _reactNative2.default.createElement(
-        _reactNative.View,
-        null,
-        button
-      )
-    );
-  },
   renderNextButton: function renderNextButton() {
     var _this7 = this;
 
     var button = void 0;
 
     if (this.props.loop || this.state.index != this.state.total - 1) {
-<<<<<<< HEAD:dist/index.js
-      button = this.props.nextButton || _reactNative2.default.createElement(
+      button = this.props.nextButton || _react2.default.createElement(
           _reactNative.Text,
           { style: styles.buttonText },
           '›'
         );
-=======
-      button = this.props.nextButton || _react2.default.createElement(
-        _reactNative.Text,
-        { style: styles.buttonText },
-        '›'
-      );
->>>>>>> leecade/master:examples/swiper.dist.js
     }
 
     return _react2.default.createElement(
       _reactNative.TouchableOpacity,
       { onPress: function onPress() {
-<<<<<<< HEAD:dist/index.js
-        return button !== null && _this4.scrollTo.call(_this4, 1);
+        return button !== null && _this7.scrollBy.call(_this7, 1);
       } },
-      _reactNative2.default.createElement(
-=======
-          return button !== null && _this7.scrollBy.call(_this7, 1);
-        } },
       _react2.default.createElement(
->>>>>>> leecade/master:examples/swiper.dist.js
         _reactNative.View,
         null,
         button
@@ -584,33 +523,19 @@ module.exports = _react2.default.createClass({
     var button = null;
 
     if (this.props.loop || this.state.index != 0) {
-<<<<<<< HEAD:dist/index.js
-      button = this.props.prevButton || _reactNative2.default.createElement(
+      button = this.props.prevButton || _react2.default.createElement(
           _reactNative.Text,
           { style: styles.buttonText },
           '‹'
         );
-=======
-      button = this.props.prevButton || _react2.default.createElement(
-        _reactNative.Text,
-        { style: styles.buttonText },
-        '‹'
-      );
->>>>>>> leecade/master:examples/swiper.dist.js
     }
 
     return _react2.default.createElement(
       _reactNative.TouchableOpacity,
       { onPress: function onPress() {
-<<<<<<< HEAD:dist/index.js
-        return button !== null && _this5.scrollTo.call(_this5, -1);
+        return button !== null && _this8.scrollBy.call(_this8, -1);
       } },
-      _reactNative2.default.createElement(
-=======
-          return button !== null && _this8.scrollBy.call(_this8, -1);
-        } },
       _react2.default.createElement(
->>>>>>> leecade/master:examples/swiper.dist.js
         _reactNative.View,
         null,
         button
@@ -648,39 +573,6 @@ module.exports = _react2.default.createClass({
     );
   },
 
-<<<<<<< HEAD:dist/index.js
-  /**
-   * Inject state to ScrollResponder
-   * @param  {object} props origin props
-   * @return {object} props injected props
-   */
-  injectState: function injectState(props) {
-    var _this6 = this;
-
-    /*    const scrollResponders = [
-     'onMomentumScrollBegin',
-     'onTouchStartCapture',
-     'onTouchStart',
-     'onTouchEnd',
-     'onResponderRelease',
-     ]*/
-
-    for (var prop in props) {
-      // if(~scrollResponders.indexOf(prop)
-      if (typeof props[prop] === 'function' && prop !== 'onMomentumScrollEnd' && prop !== 'renderPagination' && prop !== 'onScrollBeginDrag') {
-        (function () {
-          var originResponder = props[prop];
-          props[prop] = function (e) {
-            return originResponder(e, _this6.state, _this6);
-          };
-        })();
-      }
-    }
-
-    return props;
-  },
-=======
->>>>>>> leecade/master:examples/swiper.dist.js
 
   /**
    * Default render
