@@ -480,7 +480,7 @@ module.exports = React.createClass({
         {dots}
         {left}
         {pagination}
-        {this.renderRightButton}
+        {this.renderRightButton()}
       </View>
     )
   },
