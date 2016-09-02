@@ -476,8 +476,7 @@ module.exports = React.createClass({
     </View>;
 
     return (
-      <View pointerEvents='none' style={[styles['pagination_' + this.state.dir], this.props.paginationStyle]}>
-        {dots}
+      <View pointerEvents='box-none' style={[styles['pagination_' + this.state.dir], this.props.paginationStyle]}>
         {left}
         {pagination}
         {this.renderRightButton()}
