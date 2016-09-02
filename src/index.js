@@ -49,7 +49,7 @@ let styles = StyleSheet.create({
     right: 0,
     flexDirection: 'row',
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'center',
     backgroundColor:'transparent',
   },
@@ -433,7 +433,7 @@ module.exports = React.createClass({
   renderPagination() {
 
     // By default, dots only show when `total` > 2
-    if(this.state.total <= 1) return null
+    if(this.state.total <= 1 || this.state.index === this.state.total - 1) return null
 
     let dots = []
     let ActiveDot = this.props.activeDot || <View style={{
@@ -465,9 +465,22 @@ module.exports = React.createClass({
       )
     }
 
+    let pagination = <View style={{flexDirection: 'row'}}>
+      {dots}
+    </View>;
+
+    let left = <View>
+      <Text style={{color: 'white', fontSize: 18}}>
+        Next
+      </Text>
+    </View>;
+
     return (
       <View pointerEvents='none' style={[styles['pagination_' + this.state.dir], this.props.paginationStyle]}>
         {dots}
+        {left}
+        {pagination}
+        {this.renderRightButton}
       </View>
     )
   },
@@ -482,6 +495,22 @@ module.exports = React.createClass({
         </View>
       )
       : null
+  },
+
+  renderRightButton: function renderRightButton() {
+    let button;
+
+    if (this.props.loop || this.state.index != this.state.total - 1) {
+      button = this.props.nextButton || <Text style={this.props.rightButtonStyle}>Next</Text>;
+    }
+
+    return (
+      <TouchableOpacity onPress={() => button !== null && this.scrollBy.call(this, 1)}>
+        <View>
+          {button}
+        </View>
+      </TouchableOpacity>
+    );
   },
 
   renderNextButton() {
